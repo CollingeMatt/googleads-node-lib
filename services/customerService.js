@@ -18,8 +18,27 @@ function Service(options) {
   self.mutateRemove = null;
   self.mutateSet = null;
 
-  self.getCustomers = function(selector, cb) {
-      return self.get(null, selector, cb);
+  self.getCustomers = function(selector, done) {
+      //self.soapHeader.RequestHeader.clientCustomerId = clientCustomerId;
+      async.waterfall([
+            // get client
+            self.getClient,
+            // Request AdWords data...
+            function(client, cb) {
+                self.client.addSoapHeader(
+                    self.soapHeader, self.name, self.namespace, self.xmlns
+                );
+
+                self.client.setSecurity(
+                    new soap.BearerSecurity(self.credentials.access_token)
+                );
+
+                self.client.getCustomers(self.formGetRequest(selector), cb);
+            }
+        ],
+        function(err, response) {
+            return done(err, self.parseGetResponse(response));
+        });
   };
 
   self.parseGetResponse = function(response) {
