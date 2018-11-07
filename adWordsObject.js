@@ -12,7 +12,7 @@ function AdWordsObject(options) {
 
   _.defaults(options, {
     ADWORDS_CLIENT_ID: process.env.ADWORDS_CLIENT_ID,
-    ADWORDS_CLIENT_CUSTOMER_ID: process.env.ADWORDS_CLIENT_CUSTOMER_ID,
+    // ADWORDS_CLIENT_CUSTOMER_ID: process.env.ADWORDS_CLIENT_CUSTOMER_ID,
     ADWORDS_DEVELOPER_TOKEN: process.env.ADWORDS_DEVELOPER_TOKEN,
     ADWORDS_REFRESH_TOKEN: process.env.ADWORDS_REFRESH_TOKEN,
     ADWORDS_SECRET: process.env.ADWORDS_SECRET,
@@ -23,7 +23,7 @@ function AdWordsObject(options) {
   // check if all credentials are supplied
   if (
     !options.ADWORDS_CLIENT_ID ||
-    !options.ADWORDS_CLIENT_CUSTOMER_ID ||
+    // !options.ADWORDS_CLIENT_CUSTOMER_ID ||
     !options.ADWORDS_DEVELOPER_TOKEN ||
     !options.ADWORDS_REFRESH_TOKEN ||
     !options.ADWORDS_SECRET ||
