@@ -18,6 +18,10 @@ function Service(options) {
   self.mutateRemove = null;
   self.mutateSet = null;
 
+  self.getCustomers = function(selector, cb) {
+      return self.get(null, selector, cb);
+  };
+
   self.parseGetResponse = function(response) {
     if (self.validateOnly) {
       return {
