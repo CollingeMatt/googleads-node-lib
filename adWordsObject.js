@@ -23,7 +23,7 @@ function AdWordsObject(options) {
   // check if all credentials are supplied
   if (
     !options.ADWORDS_CLIENT_ID ||
-    (options.omitCustomerId || (!options.omitCustomerId && !options.ADWORDS_CLIENT_CUSTOMER_ID)) ||
+    (!options.omitCustomerId && !options.ADWORDS_CLIENT_CUSTOMER_ID) ||
     !options.ADWORDS_DEVELOPER_TOKEN ||
     !options.ADWORDS_REFRESH_TOKEN ||
     !options.ADWORDS_SECRET ||
