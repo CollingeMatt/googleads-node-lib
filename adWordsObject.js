@@ -12,7 +12,7 @@ function AdWordsObject(options) {
 
   _.defaults(options, {
     ADWORDS_CLIENT_ID: process.env.ADWORDS_CLIENT_ID,
-    // ADWORDS_CLIENT_CUSTOMER_ID: process.env.ADWORDS_CLIENT_CUSTOMER_ID,
+    ADWORDS_CLIENT_CUSTOMER_ID: process.env.ADWORDS_CLIENT_CUSTOMER_ID,
     ADWORDS_DEVELOPER_TOKEN: process.env.ADWORDS_DEVELOPER_TOKEN,
     ADWORDS_REFRESH_TOKEN: process.env.ADWORDS_REFRESH_TOKEN,
     ADWORDS_SECRET: process.env.ADWORDS_SECRET,
@@ -23,13 +23,18 @@ function AdWordsObject(options) {
   // check if all credentials are supplied
   if (
     !options.ADWORDS_CLIENT_ID ||
-    // !options.ADWORDS_CLIENT_CUSTOMER_ID ||
+    (options.omitCustomerId || (!options.omitCustomerId && !options.ADWORDS_CLIENT_CUSTOMER_ID)) ||
     !options.ADWORDS_DEVELOPER_TOKEN ||
     !options.ADWORDS_REFRESH_TOKEN ||
     !options.ADWORDS_SECRET ||
     !options.ADWORDS_USER_AGENT
   ) {
     throw (new Error('googleads-node-lib not configured correctly'));
+  }
+
+  if (options.omitCustomerId) {
+    delete options.ADWORDS_CLIENT_CUSTOMER_ID;
+    delete options.omitCustomerId;
   }
 
   self.options = options;
