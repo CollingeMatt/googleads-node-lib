@@ -37,7 +37,12 @@ function Service(options) {
                 }
             ],
             function(err, response) {
-                return done(null, self.parseGetResponse(response));
+                var res = self.parseGetResponse(response);
+
+                if (err)
+                    res = { error: err.body };
+
+                return done(null, res);
             });
     };
 
