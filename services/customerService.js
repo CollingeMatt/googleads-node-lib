@@ -37,7 +37,7 @@ function Service(options) {
                 }
             ],
             function(err, response) {
-                return done(err, self.parseGetResponse(response));
+                return done(null, self.parseGetResponse(response));
             });
     };
 
