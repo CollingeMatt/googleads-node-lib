@@ -12,6 +12,28 @@ function Service(options) {
   self.Collection = types.collection;
   self.Model = types.model;
 
+    self.get = function (selector, callback) {
+        async.waterfall([
+                self.getClient,
+                function (client, callback) {
+                    self.client.addSoapHeader(
+                        self.soapHeader, self.name, self.namespace, self.xmlns
+                    );
+
+                    self.client.setSecurity(
+                        new soap.BearerSecurity(self.credentials.access_token)
+                    );
+
+                    self.client.get(selector, callback);
+                }
+            ],
+            function (error, response) {
+                var res = self.parseGetResponse(response);
+
+                return callback(null, res);
+            })
+    }
+
   self.mutateRemove = function(clientCustomerId, operand, done) {
     // CampaignOperation does not support the REMOVE operator. To remove a
     // campaign, set its status to REMOVED

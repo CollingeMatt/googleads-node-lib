@@ -70,7 +70,7 @@ module.exports = {
 
   // Account management
   CustomerService: require('./services/customerService'),
-  CustomerSyncService: null,
+  CustomerSyncService: require('./services/customerSyncService'),
   ManagedCustomerService: require('./services/managedCustomerService'),
 
   // Utility
