@@ -59,7 +59,7 @@ module.exports = {
   DataService: null,
   FeedItemService: null,
   FeedMappingService: null,
-  FeedService: null,
+  FeedService: require('./services/feedService'),
   OfflineConversionFeedService: require('./services/offlineConversionFeedService'),
 
   // Optimization
