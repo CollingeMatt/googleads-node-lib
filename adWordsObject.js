@@ -66,13 +66,18 @@ function AdWordsObject(options) {
           url: self.tokenUrl
         },
         function(error, response, body) {
-          self.credentials = JSON.parse(body);
-          self.credentials.issued = Date.now();
+          if(error){
+            done(error);
+          }
+          else {
+              self.credentials = JSON.parse(body);
+              self.credentials.issued = Date.now();
 
-          self.credentials.expires = self.credentials.issued -
-            self.credentials.expires_in;
+              self.credentials.expires = self.credentials.issued -
+                  self.credentials.expires_in;
 
-          done(error);
+              done(error);
+          }
         }
       );
 

@@ -6,7 +6,7 @@ var
 var AdWordsService = require('./adWordsService');
 var types = require('../types/customerSync');
 
-function Service(options){
+function Service(options) {
     var self = this;
     AdWordsService.call(self, options);
     self.Collection = types.collection;
@@ -16,14 +16,14 @@ function Service(options){
     self.mutateRemove = null;
     self.mutateSet = null;
 
-    self.get = function(selector, callback){
+    self.get = function (selector, callback) {
 
         async.waterfall(
             [
                 // get client
                 self.getClient,
                 // Request AdWords data...
-                function(client, cb) {
+                function (client, cb) {
 
                     self.client.addSoapHeader(
                         self.soapHeader, self.name, self.namespace, self.xmlns
@@ -36,17 +36,29 @@ function Service(options){
                     self.client.get(selector, cb);
                 }
             ],
-            function(err, response) {
-                var res = self.parseGetResponse(response);
+            function (err, response) {
+                if (!response) {
+                    if (err) {
+                        callback(err, null);
+                    }
+                    else {
+                        console.log('Unknown error occurred...');
+                        callback({Error: 'No response'}, null);
+                    }
+                }
+                else {
+                    var res = self.parseGetResponse(response);
 
-                if (err)
-                    res.error = err.body;
+                    if (err) {
+                        res.error = err.body;
+                    }
 
-                return callback(null, res);
+                    callback(null, res);
+                }
             });
     }
 
-    self.parseGetResponse = function(response) {
+    self.parseGetResponse = function (response) {
         if (self.validateOnly) {
             return {
                 changedCampaigns: null,
