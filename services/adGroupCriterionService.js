@@ -74,7 +74,7 @@ function Service(options) {
     'CriteriaSamples',
     'CriteriaType',
     'CriterionUse',
-    'DestinationUrl',
+    //'DestinationUrl',
     'DisapprovalReasons',
     'DisplayName',
     'EnhancedCpcEnabled',
