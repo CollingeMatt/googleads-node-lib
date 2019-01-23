@@ -110,7 +110,7 @@ function Service(options) {
     'IsUserInterestTargeted',
     'Labels',
     'MediaId',
-    'MimeType',
+    'LegacyMimeType',
     'PromotionLine',
     'ReadyToPlayOnTheWeb',
     'ReferenceId',
